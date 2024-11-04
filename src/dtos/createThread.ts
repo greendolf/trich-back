@@ -1,13 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { ThreadContent } from "./threadContent";
 
-export class Thread {
-    @ApiProperty({ description: "Thread identifier", nullable: false })
-    id_: number;
-
-    @ApiProperty({ description: "Thread section", nullable: false })
-    section: number;
-
+export class CreateThread {
     @ApiProperty({ description: "Thread title", nullable: false })
     title: string;
 
@@ -17,9 +11,7 @@ export class Thread {
     @ApiProperty({ description: "Thread content", nullable: false })
     content: ThreadContent;
 
-    constructor(id_: number, section: number, title: string, tags: Array<string>, content: { text: string, images: Array<string> }) {
-        this.id_ = id_;
-        this.section = section;
+    constructor(title: string, tags: Array<string>, content: { text: string, images: Array<string> }) {
         this.title = title;
         this.tags = tags;
         this.content = content;
