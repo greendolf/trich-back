@@ -19,6 +19,7 @@ export class SectionsController {
   @ApiOperation({ summary: "Returns a section with specified id" })
   @ApiResponse({ status: HttpStatus.OK, description: "Success", type: [Section] })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: "Bad Request" })
+
   async getSection(@Param("id") id: string): Promise<Section> {
     if (!isNaN(Number(id))) {
       const section = await this.SectionService.getSection(Number(id))

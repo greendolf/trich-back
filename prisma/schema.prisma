@@ -7,6 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+type ThreadsContent {
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  images String[]
+  text   String
+}
+
 model sections {
   id   Int    @id @map("_id")
   name String
@@ -17,5 +23,10 @@ model tags {
 }
 
 model threads {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String         @id @default(auto()) @map("_id") @db.ObjectId
+  content ThreadsContent
+  id_     Int            @map("id")
+  section Int
+  tags    String[]
+  title   String
 }
