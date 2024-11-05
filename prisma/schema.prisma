@@ -8,14 +8,14 @@ datasource db {
 }
 
 type ThreadsContent {
-  /// Could not determine type: the field only had null or empty values in the sample set.
   images String[]
   text   String
 }
 
 model sections {
-  id   Int    @id @map("_id")
-  name String
+  id     Int     @id @map("_id")
+  image String? @map("image:")
+  name   String
 }
 
 model tags {
@@ -25,6 +25,7 @@ model tags {
 model threads {
   id      String         @id @default(auto()) @map("_id") @db.ObjectId
   content ThreadsContent
+  date    DateTime       @db.Date
   id_     Int            @map("id")
   section Int
   tags    String[]

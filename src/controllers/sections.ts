@@ -1,4 +1,4 @@
-import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
 import { SectionsService } from '../services/sections';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Section } from 'src/dtos/section';
@@ -15,14 +15,21 @@ export class SectionsController {
     return (await this.SectionService.getSections());
   }
 
-  @Get(":id") // получить определённый раздел
+  // @Post() // получить все разделы
+  // @ApiOperation({ summary: "Returns all sections" })
+  // @ApiResponse({ status: HttpStatus.OK, description: "Success", type: [Section] })
+  // async postSections(): Promise<Section> {
+  //   return (await this.SectionService.postSection());
+  // }
+
+  @Get(":section_id") // получить определённый раздел
   @ApiOperation({ summary: "Returns a section with specified id" })
   @ApiResponse({ status: HttpStatus.OK, description: "Success", type: [Section] })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: "Bad Request" })
 
-  async getSection(@Param("id") id: string): Promise<Section> {
-    if (!isNaN(Number(id))) {
-      const section = await this.SectionService.getSection(Number(id))
+  async getSection(@Param("section_id") section_id: number): Promise<Section> {
+    if (!isNaN(Number(section_id))) {
+      const section = await this.SectionService.getSection(Number(section_id))
 
       if (!section) throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST)
       return section;
